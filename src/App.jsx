@@ -5,22 +5,7 @@ import { isGuestbookConfigured, supabase } from "./lib/supabase";
 const MAX_NAME_LENGTH = 24;
 const MAX_MESSAGE_LENGTH = 220;
 
-const fallbackNotes = [
-  {
-    id: "demo-1",
-    name: "朋友A",
-    message: "这一页已经有那种一打开就会想起大家的感觉了。",
-    chapter_key: "taizhou:taizhou-sea",
-    image_url: "",
-  },
-  {
-    id: "demo-2",
-    name: "朋友B",
-    message: "重庆那几张闪光灯照片太有假期感了。",
-    chapter_key: "chongqing:chongqing-play",
-    image_url: "",
-  },
-];
+const fallbackNotes = [];
 
 function formatDate(value) {
   return new Intl.DateTimeFormat("zh-CN", {
@@ -30,9 +15,9 @@ function formatDate(value) {
 }
 
 function App() {
-  const [activeId, setActiveId] = useState(journeys[0]?.id ?? "");
+  const [activeId, setActiveId] = useState("");
   const [notes, setNotes] = useState(fallbackNotes);
-  const activeJourney = journeys.find((journey) => journey.id === activeId) ?? journeys[0];
+  const activeJourney = journeys.find((journey) => journey.id === activeId);
 
   useEffect(() => {
     let isMounted = true;
@@ -74,11 +59,16 @@ function App() {
 
   return (
     <div className="site-shell">
-      <Hero journeys={journeys} stats={stats} onSelect={setActiveId} />
-      <main>
-        <CityPicker journeys={journeys} activeId={activeId} onSelect={setActiveId} />
-        <JourneyView journey={activeJourney} notes={notes} onAddNote={setNotes} />
-      </main>
+      {!activeJourney ? (
+        <Home journeys={journeys} stats={stats} onSelect={setActiveId} />
+      ) : (
+        <JourneyPage
+          journey={activeJourney}
+          notes={notes}
+          onAddNote={setNotes}
+          onBack={() => setActiveId("")}
+        />
+      )}
       <footer className="footer">
         <span>这些路还会继续往后写。</span>
       </footer>
@@ -86,15 +76,26 @@ function App() {
   );
 }
 
+function Home({ journeys, stats, onSelect }) {
+  return (
+    <>
+      <Hero journeys={journeys} stats={stats} onSelect={onSelect} />
+      <main>
+        <CityPicker journeys={journeys} onSelect={onSelect} />
+      </main>
+    </>
+  );
+}
+
 function Hero({ journeys, stats, onSelect }) {
   return (
     <header className="hero">
       <div className="hero__copy">
-        <p className="eyebrow">青春旅行存档</p>
+        <p className="eyebrow">青春旅行存档 / 从台州开始</p>
         <h1>我们把出发过的地方放在这里</h1>
         <p>
-          台州的海边、南京的摩天轮、重庆的火锅夜、南昌的草地和饭桌。先做成一个可以点进去慢慢看的网站，
-          后面每次旅行都能继续加。
+          台州的海边、南京的摩天轮、重庆的火锅夜、南昌的草地和饭桌。点一座城市进去，
+          看那一次具体发生过什么。
         </p>
         <div className="hero__stats">
           {stats.map((item) => (
@@ -115,6 +116,7 @@ function Hero({ journeys, stats, onSelect }) {
           >
             <img src={journey.cover} alt={`${journey.city}封面`} />
             <span>{journey.city}</span>
+            <small>点进去看</small>
           </button>
         ))}
       </div>
@@ -122,22 +124,40 @@ function Hero({ journeys, stats, onSelect }) {
   );
 }
 
-function CityPicker({ journeys, activeId, onSelect }) {
+function CityPicker({ journeys, onSelect }) {
   return (
-    <section className="city-dock" aria-label="城市入口">
-      {journeys.map((journey) => (
-        <button
-          className={journey.id === activeId ? "city-tab city-tab--active" : "city-tab"}
-          key={journey.id}
-          type="button"
-          onClick={() => onSelect(journey.id)}
-          style={{ "--accent": journey.color }}
-        >
-          <span>{journey.city}</span>
-          <small>{formatDate(journey.date)}</small>
-        </button>
-      ))}
+    <section className="city-section" aria-label="城市入口">
+      <div className="section-title">
+        <p className="eyebrow">选择一站</p>
+        <h2>先点城市，再看照片和故事</h2>
+      </div>
+      <div className="city-dock">
+        {journeys.map((journey) => (
+          <button
+            className="city-tab"
+            key={journey.id}
+            type="button"
+            onClick={() => onSelect(journey.id)}
+            style={{ "--accent": journey.color }}
+          >
+            <span>{journey.city}</span>
+            <small>{formatDate(journey.date)}</small>
+            <em>{journey.short}</em>
+          </button>
+        ))}
+      </div>
     </section>
+  );
+}
+
+function JourneyPage({ journey, notes, onAddNote, onBack }) {
+  return (
+    <main className="detail-page">
+      <button className="back-button" type="button" onClick={onBack}>
+        ← 返回主页
+      </button>
+      <JourneyView journey={journey} notes={notes} onAddNote={onAddNote} />
+    </main>
   );
 }
 
@@ -149,6 +169,13 @@ function JourneyView({ journey, notes, onAddNote }) {
           <p className="eyebrow">{journey.location}</p>
           <h2>{journey.title}</h2>
           <p>{journey.intro}</p>
+          <div className="journey__chips">
+            <span>{formatDate(journey.date)}</span>
+            <span>{journey.chapters.length} 个片段</span>
+            <span>
+              {journey.chapters.reduce((sum, chapter) => sum + chapter.photos.length, 0)} 张照片
+            </span>
+          </div>
         </div>
         <img src={journey.cover} alt={`${journey.city}旅行封面`} />
       </div>
@@ -313,13 +340,17 @@ function MemoryWall({ chapterKey, notes, onAddNote }) {
       </form>
 
       <div className="note-list">
-        {notes.map((note) => (
-          <article className="note" key={note.id}>
-            <strong>{note.name}</strong>
-            <p>{note.message}</p>
-            {note.image_url ? <img src={note.image_url} alt={`${note.name}发的照片`} /> : null}
-          </article>
-        ))}
+        {notes.length ? (
+          notes.map((note) => (
+            <article className="note" key={note.id}>
+              <strong>{note.name}</strong>
+              <p>{note.message}</p>
+              {note.image_url ? <img src={note.image_url} alt={`${note.name}发的照片`} /> : null}
+            </article>
+          ))
+        ) : (
+          <p className="empty-note">还没有留言。等云端保存接好以后，这里就会变成大家的回忆墙。</p>
+        )}
       </div>
     </div>
   );

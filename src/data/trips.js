@@ -110,11 +110,6 @@ export const journeys = [
             alt: "南京旅行吃的药膳鸡",
             caption: "南京吃的药膳鸡",
           },
-          {
-            src: "/photos/nanjing-02.jpg",
-            alt: "南京旅行吃的火锅",
-            caption: "另一顿热气腾腾",
-          },
         ],
       },
       {
@@ -166,6 +161,11 @@ export const journeys = [
             src: "/photos/chongqing-01.jpg",
             alt: "重庆火锅店多人合照",
             caption: "围着火锅拍一张",
+          },
+          {
+            src: "/photos/nanjing-02.jpg",
+            alt: "重庆旅行吃的火锅",
+            caption: "这张其实是在重庆吃的火锅",
           },
           {
             src: "/photos/chongqing-02.jpg",
