@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="湖边照片占位图">
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f5d7a1"/><stop offset=".58" stop-color="#8bb1aa"/><stop offset="1" stop-color="#355f6a"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#g)"/><circle cx="930" cy="180" r="94" fill="#fff0c3" opacity=".86"/><path d="M0 520c240-80 420-40 610-78 210-42 340-156 590-112v570H0z" fill="#f7ead2" opacity=".72"/><path d="M0 650c220-54 390-26 610-70 232-46 378-86 590-42v362H0z" fill="#537c77" opacity=".68"/><text x="70" y="800" fill="#fffaf0" font-family="Arial" font-size="54" font-weight="700">Lake photo</text>
+</svg>

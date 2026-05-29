@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="夜市照片占位图">
+  <rect width="1200" height="900" fill="#273f47"/><circle cx="190" cy="160" r="58" fill="#f0bd69"/><circle cx="380" cy="230" r="42" fill="#d96b55"/><circle cx="760" cy="150" r="64" fill="#f5e0a8"/><circle cx="990" cy="260" r="48" fill="#7db0a2"/><path d="M0 500h1200v400H0z" fill="#5d463b"/><path d="M80 430h290v280H80zM460 390h300v320H460zM850 450h270v260H850z" fill="#fff1cf" opacity=".82"/><text x="70" y="800" fill="#fffaf0" font-family="Arial" font-size="54" font-weight="700">Market photo</text>
+</svg>

@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="票根照片占位图">
+  <rect width="1200" height="900" fill="#b76b55"/><rect x="185" y="180" width="830" height="500" rx="28" fill="#fff7e8" transform="rotate(-6 600 430)"/><path d="M320 280h420M320 370h560M320 460h370" stroke="#82604b" stroke-width="28" stroke-linecap="round" opacity=".76"/><circle cx="870" cy="520" r="74" fill="#6f8b78" opacity=".88"/><text x="70" y="800" fill="#fffaf0" font-family="Arial" font-size="54" font-weight="700">Ticket photo</text>
+</svg>
