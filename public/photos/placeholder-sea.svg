@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="海边照片占位图">
+  <linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#8fb8c9"/><stop offset=".48" stop-color="#f4d6a2"/><stop offset="1" stop-color="#3f7583"/></linearGradient><rect width="1200" height="900" fill="url(#g)"/><path d="M0 550c180-34 280 28 445-9 180-40 320-76 520-19 92 26 160 24 235 6v372H0z" fill="#266577" opacity=".78"/><path d="M0 628c230 50 390-34 610 2 230 38 382 50 590-2" stroke="#fff8e8" stroke-width="16" fill="none" opacity=".72"/><text x="70" y="800" fill="#fffaf0" font-family="Arial" font-size="54" font-weight="700">Sea photo</text>
+</svg>

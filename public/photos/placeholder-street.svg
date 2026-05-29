@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="街巷照片占位图">
+  <rect width="1200" height="900" fill="#d9b28d"/><path d="M0 0h420v900H0z" fill="#8f604d"/><path d="M760 0h440v900H760z" fill="#e6cfaa"/><path d="M460 0h260l90 900H360z" fill="#f9eee0"/><path d="M520 270h150v210H520zM85 190h170v120H85zM875 210h185v140H875z" fill="#315b66" opacity=".78"/><text x="70" y="800" fill="#fffaf0" font-family="Arial" font-size="54" font-weight="700">Street photo</text>
+</svg>
